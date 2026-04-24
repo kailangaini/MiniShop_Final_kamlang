@@ -31,11 +31,10 @@ def payment():
 
     cart = get_cart()
 
-    if not cart:
+    if not cart or not cart.items:
         return redirect('/cart')
 
     items = cart.items or []
-
     total = sum(float(i.price) * i.quantity for i in items)
 
     if total <= 0:
