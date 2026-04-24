@@ -6,49 +6,65 @@ from model.cart_item import CartItem
 
 
 # =========================
-# GET CART (GUEST ONLY)
+# CART HELPER
 # =========================
-@app.get('/cart')
-def cart():
-
-    cart_id = session.get('cart_id')
+def get_or_create_cart():
+    cart_id = session.get("cart_id")
 
     cart = None
 
     if cart_id:
-        cart = Cart.query.filter_by(id=cart_id, status=0).first()
+        cart = Cart.query.filter_by(id=cart_id).first()
 
+        #  if cart is deleted or already checked out → ignore it
+        if not cart or cart.status == 1:
+            cart = None
+
+    #  ALSO if cart exists but has NO items → treat as new cart
+    if cart and len(cart.items) == 0:
+        cart = None
+
+    # ✅ create new cart if needed
     if not cart:
-        return render_template('pageFront/cart.html', items=[], total=0)
+        cart = Cart(status=0)
+        db.session.add(cart)
+        db.session.commit()
 
-    items = cart.items
+        session["cart_id"] = cart.id
+
+    return cart
+
+
+# =========================
+# VIEW CART
+# =========================
+@app.get('/cart')
+def cart():
+    cart = get_or_create_cart()
+
+    items = cart.items if cart else []
 
     cart_data = []
     total = 0
 
     for i in items:
+        product = i.product
         subtotal = i.price * i.quantity
         total += subtotal
-
-        product = i.product
 
         cart_data.append({
             "id": i.id,
             "price": i.price,
             "quantity": i.quantity,
-            "stock": product.qty,
+            "stock": product.qty if product else 0,
             "product": {
-                "id": product.id,
-                "name": product.name,
-                "image": product.image
+                "id": product.id if product else None,
+                "name": product.name if product else "",
+                "image": product.image if product else ""
             }
         })
 
-    return render_template(
-        'pageFront/cart.html',
-        items=cart_data,
-        total=total
-    )
+    return render_template('pageFront/cart.html', items=cart_data, total=total)
 
 
 # =========================
@@ -57,27 +73,19 @@ def cart():
 @app.post('/cart/add')
 def add_to_cart():
 
-    data = request.get_json()
+    data = request.get_json(silent=True) or {}
 
-    product_id = int(data.get('product_id'))
-    qty = int(data.get('qty', 1))
+    product_id = data.get('product_id')
+    qty = int(data.get('qty') or 1)
+
+    if not product_id:
+        return jsonify({"success": False, "message": "missing product_id"}), 400
 
     product = Product.query.get(product_id)
-
     if not product:
         return jsonify({"success": False}), 404
 
-    cart_id = session.get('cart_id')
-    cart = None
-
-    if cart_id:
-        cart = Cart.query.filter_by(id=cart_id, status=0).first()
-
-    if not cart:
-        cart = Cart(status=0)
-        db.session.add(cart)
-        db.session.commit()
-        session['cart_id'] = cart.id
+    cart = get_or_create_cart()
 
     item = CartItem.query.filter_by(
         cart_id=cart.id,
@@ -87,12 +95,13 @@ def add_to_cart():
     if item:
         item.quantity += qty
     else:
-        db.session.add(CartItem(
+        item = CartItem(
             cart_id=cart.id,
             product_id=product_id,
             quantity=qty,
             price=product.price
-        ))
+        )
+        db.session.add(item)
 
     db.session.commit()
 
@@ -105,15 +114,19 @@ def add_to_cart():
 @app.post('/cart/update')
 def update_cart_item():
 
-    item = CartItem.query.get(request.json.get('item_id'))
-    qty = int(request.json.get('qty', 1))
+    data = request.get_json(silent=True) or {}
+
+    item_id = data.get('item_id')
+    qty = int(data.get('qty') or 1)
+
+    item = CartItem.query.get(item_id)
 
     if not item:
-        return {"status": "error"}, 404
+        return jsonify({"status": "error"}), 404
 
     product = Product.query.get(item.product_id)
 
-    if qty > product.qty:
+    if product and qty > product.qty:
         qty = product.qty
 
     if qty <= 0:
@@ -123,7 +136,7 @@ def update_cart_item():
 
     db.session.commit()
 
-    return {"status": "success"}
+    return jsonify({"status": "success"})
 
 
 # =========================
@@ -132,10 +145,13 @@ def update_cart_item():
 @app.post('/cart/remove')
 def remove_cart_item():
 
-    item = CartItem.query.get(request.json.get('item_id'))
+    data = request.get_json(silent=True) or {}
+    item_id = data.get('item_id')
+
+    item = CartItem.query.get(item_id)
 
     if item:
         db.session.delete(item)
         db.session.commit()
 
-    return {"status": "success"}
+    return jsonify({"status": "success"})
