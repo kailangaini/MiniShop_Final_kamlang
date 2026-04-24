@@ -38,6 +38,7 @@ def cart():
             "quantity": i.quantity,
             "stock": product.qty,
             "product": {
+                "id": product.id,
                 "name": product.name,
                 "image": product.image
             }

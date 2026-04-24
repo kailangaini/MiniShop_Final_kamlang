@@ -5,13 +5,13 @@ from flask_migrate import Migrate
 import os
 import config
 from datetime import timedelta
-
+from dotenv import load_dotenv
+load_dotenv()
 
 
 app = Flask(__name__)
 
-# session
-app.config["SECRET_KEY"] = "kailang123"
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(hours=12)
 
 

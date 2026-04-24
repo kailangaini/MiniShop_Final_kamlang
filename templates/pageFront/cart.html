@@ -133,7 +133,7 @@
       </a>
       <div>
         <div class="cart-name">[[ item.product.name ]]</div>
-        <div class="cart-price">$ [[ item.price ]]</div>
+        <div class="cart-price"> [[ item.price ]] ៛</div>
         <small>Stock: [[ item.stock ]]</small>
       </div>
     </div>
@@ -151,7 +151,7 @@
     </div>
 
     <div class="subtotal">
-      $ [[ item.price * item.quantity ]]
+      [[ item.price * item.quantity ]]៛
     </div>
 
     <button class="remove-btn" @click="removeItem(item.id)">
@@ -187,7 +187,7 @@ createApp({
 
   computed: {
     total() {
-      return this.items.reduce((s, i) => s + i.price * i.quantity, 0);
+       return this.items.reduce((s, i) => s + i.price * i.quantity, 0);
     }
   },
 

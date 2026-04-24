@@ -147,7 +147,7 @@ hr {
       <!-- TOTAL -->
       <div class="total-row">
         <span>Total</span>
-        <span>${{ "%.2f"|format(order.total) }}</span>
+        <span>{{ "%.2f"|format(order.total) }} ៛</span>
       </div>
 
       <div class="divider"></div>
@@ -159,7 +159,7 @@ hr {
       <div class="info-row">
         <span>{{ item.name }}</span>
         <span>x{{ item.quantity }}</span>
-        <span>${{ "%.2f"|format(item.price * item.quantity) }}</span>
+        <span>{{ "%.2f"|format(item.price * item.quantity) }} ៛</span>
       </div>
       {% endfor %}
 

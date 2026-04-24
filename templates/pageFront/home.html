@@ -2,287 +2,305 @@
 
 {% block content %}
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:wght@300;400;500&display=swap"
+          rel="stylesheet">
 
-<style>
-:root{
-  --cream:#FAF8F3;
-  --border:#E0D9CC;
-  --text:#1A1710;
-  --muted:#8A8378;
-  --orange:#E8500A;
-}
+    <style>
+        :root {
+            --cream: #FAF8F3;
+            --border: #E0D9CC;
+            --text: #1A1710;
+            --muted: #8A8378;
+            --orange: #E8500A;
+        }
 
-body{
-  background:var(--cream);
-  font-family:'DM Sans',sans-serif;
-}
+        body {
+            background: var(--cream);
+            font-family: 'DM Sans', sans-serif;
+        }
 
-.hero{
-  max-width:1100px;
-  margin:auto;
-  padding:60px 32px 40px;
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-end;
-}
+        .hero {
+            max-width: 1100px;
+            margin: auto;
+            padding: 60px 32px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
 
-.hero h1{
-  font-family:'Playfair Display',serif;
-  font-size:52px;
-  line-height:1.1;
-  color:var(--text);
-}
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 52px;
+            line-height: 1.1;
+            color: var(--text);
+        }
 
-.hero h1 em{
-  color:var(--orange);
-  font-style:italic;
-}
+        .hero h1 em {
+            color: var(--orange);
+            font-style: italic;
+        }
 
-.hero p{
-  color:var(--muted);
-  max-width:350px;
-  font-size:14px;
-  margin-top:10px;
-}
+        .hero p {
+            color: var(--muted);
+            max-width: 350px;
+            font-size: 14px;
+            margin-top: 10px;
+        }
 
-.filter{
-  max-width:1100px;
-  margin:auto;
-  padding:20px 32px;
-  display:flex;
-  gap:10px;
-}
+        .filter {
+            max-width: 1100px;
+            margin: auto;
+            padding: 20px 32px;
+            display: flex;
+            gap: 10px;
+        }
 
-.chip{
-  padding:6px 14px;
-  border:1px solid var(--border);
-  border-radius:20px;
-  font-size:13px;
-  background:#fff;
-  color:var(--muted);
-  text-decoration:none;
-}
+        .chip {
+            padding: 6px 14px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 13px;
+            background: #fff;
+            color: var(--muted);
+            text-decoration: none;
+        }
 
-.chip.active{
-  background:var(--text);
-  color:#fff;
-  border-color:var(--text);
-}
+        .chip.active {
+            background: var(--text);
+            color: #fff;
+            border-color: var(--text);
+        }
 
-.grid{
-  max-width:1100px;
-  margin:auto;
-  padding:20px 32px 60px;
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
-  gap:20px;
-}
+        .grid {
+            max-width: 1100px;
+            margin: auto;
+            padding: 20px 32px 60px;
+            display: grid;
+            grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+        }
 
-.card{
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:16px;
-  overflow:hidden;
-}
+        .card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
 
-.card img{
-  width:100%;
-  height:180px;
-  object-fit:cover;
-}
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
 
-.card-body{
-  padding:15px;
-}
+        .card-body {
+            padding: 15px;
+        }
 
-.card-title{
-  font-family:'Playfair Display',serif;
-  font-size:18px;
-  margin-bottom:5px;
-}
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
 
-.card-desc{
-  font-size:12px;
-  color:var(--muted);
-  height:32px;
-  overflow:hidden;
-}
+        .card-desc {
+            font-size: 12px;
+            color: var(--muted);
+            height: 32px;
+            overflow: hidden;
+        }
 
-.card-bottom{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-top:12px;
-}
+        .card-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+        }
 
-.price{
-  font-family:'Playfair Display',serif;
-  font-size:20px;
-}
+        .price {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+        }
 
-.add{
-  width:36px;
-  height:36px;
-  background:var(--orange);
-  border-radius:10px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#fff;
-  border:none;
-  cursor:pointer;
-  font-size:18px;
-  line-height:1;
-}
+        .add {
+            width: 36px;
+            height: 36px;
+            background: var(--orange);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            line-height: 1;
+        }
 
-.add:disabled{
-  opacity:0.7;
-  cursor:pointer;
-}
+        .add:disabled {
+            opacity: 0.7;
+            cursor: pointer;
+        }
 
-/* Toast message */
-.toast{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  background:var(--text);
-  color:#fff;
-  padding:10px 16px;
-  border-radius:10px;
-  font-size:14px;
-  opacity:0;
-  transform:translateY(10px);
-  transition:0.3s;
-}
+        /* Toast message */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--text);
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: 0.3s;
+        }
 
-.toast.show{
-  opacity:1;
-  transform:translateY(0);
-}
-</style>
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 
-<div id="shopApp">
+    <div id="shopApp">
 
-<!-- Toast -->
-<div class="toast" :class="{show: toast}">
-  [[ toast ]]
-</div>
+        <!-- Toast -->
+        <div class="toast" :class="{show: toast}">
+            [[ toast ]]
+        </div>
 
-<div class="hero">
-  <div>
-    <h1>Good food,<br><em>made fresh.</em></h1>
-    <p>Handpicked ingredients, bold flavors — order what you love.</p>
-  </div>
-</div>
+        <div class="hero">
+            <div>
+                <h1>Good food,<br><em>made fresh.</em></h1>
+                <p>Handpicked ingredients, bold flavors — order what you love.</p>
+            </div>
+        </div>
 
-<div class="filter">
-  <a class="chip {% if not selected_category %}active{% endif %}" href="{{ url_for('home') }}">All</a>
+        <div class="filter">
+            <a class="chip {% if not selected_category %}active{% endif %}" href="{{ url_for('home') }}">All</a>
 
-  {% for cat in categories %}
-  <a class="chip {% if selected_category == cat.name %}active{% endif %}"
-     href="{{ url_for('products_filter') }}?category={{ cat.name }}">
-    {{ cat.name }}
-  </a>
-  {% endfor %}
-</div>
+            {% for cat in categories %}
+                <a class="chip {% if selected_category == cat.name %}active{% endif %}"
+                   href="{{ url_for('products_filter') }}?category={{ cat.name }}">
+                    {{ cat.name }}
+                </a>
+            {% endfor %}
+        </div>
 
-<div class="grid">
+        <div class="grid">
 
-{% for p in products %}
-<div class="card">
+            {% for p in products %}
+                <div class="card">
 
-  <a href="{{ url_for('product_details',product_id=p.id) }}">
-    <img src="{{ p.image }}" alt="{{ p.name }}">
-  </a>
+                    <a href="{{ url_for('product_details',product_id=p.id) }}">
+                        <img src="{{ p.image }}" alt="{{ p.name }}">
+                    </a>
 
-  <div class="card-body">
+                    <div class="card-body">
+                        <div class="card-title">{{ p.name }}</div>
+                        <div class="card-desc">{{ p.description }}</div>
 
-    <div class="card-title">{{ p.name }}</div>
-    <div class="card-desc">{{ p.description }}</div>
 
-    <div class="card-bottom">
+                        <div class="card-bottom">
 
-      <div class="price">${{ "%.2f"|format(p.price) }}</div>
+                            <div>
+                                <div class="price">{{ "%.2f"|format(p.price) }} ៛</div>
 
-      {% if p.qty > 0 %}
-          <button
-            class="add"
-            @click="addToCart({{ p.id }})"
-            :disabled="loading === {{ p.id }}"
-          >
-            [[ loading === {{ p.id }} ? '...' : '+' ]]
-          </button>
-        {% else %}
-          <button class="add" disabled>X</button>
-        {% endif %}
+                                <div style="
+                                        font-size:11px;
+                                        margin-top:2px;
+                                        color: {% if p.qty > 10 %}#2e7d32{% elif p.qty > 0 %}#e65100{% else %}#c62828{% endif %};
+                                        font-weight:500;
+                                        ">
+                                    {% if p.qty > 10 %}
+                                        In stock ({{ p.qty }})
+                                    {% elif p.qty > 0 %}
+                                        Low stock ({{ p.qty }})
+                                    {% else %}
+                                        Out of stock
+                                    {% endif %}
+                                </div>
+                            </div>
 
+                            {% if p.qty > 0 %}
+                                <button
+                                        class="add"
+                                        @click="addToCart({{ p.id }})"
+                                        :disabled="loading === {{ p.id }}"
+                                >
+                                    [[ loading === {{ p.id }} ? '...' : '+' ]]
+                                </button>
+                            {% else %}
+                                <button class="add" disabled>X</button>
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+            {% endfor %}
+
+        </div>
     </div>
 
-  </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
-</div>
-{% endfor %}
+    <script>
+        const {createApp} = Vue;
 
-</div>
-</div>
+        createApp({
 
-<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+            delimiters: ['[[', ']]'],
 
-<script>
-const { createApp } = Vue;
+            data() {
+                return {
+                    loading: null,
+                    toast: ''
+                }
+            },
 
-createApp({
+            methods: {
 
-  delimiters:['[[',']]'],
+                addToCart(productId) {
 
-  data(){
-    return{
-      loading:null,
-      toast:''
-    }
-  },
+                    this.loading = productId;
 
-  methods:{
+                    fetch("/cart/add", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            product_id: productId,
+                            qty: 1
+                        })
+                    })
 
-    addToCart(productId){
+                        .then(res => res.json())
+                        .then(data => {
+                            this.loading = null;
 
-      this.loading = productId;
+                            this.toast = "Added to cart ✅";
 
-      fetch("/cart/add",{
-        method:"POST",
-        headers:{
-          "Content-Type":"application/json"
-        },
-        body:JSON.stringify({
-          product_id:productId,
-          qty:1
-        })
-      })
+                            setTimeout(() => {
+                                this.toast = "";
+                            }, 2000);
 
-      .then(res=>res.json())
-      .then(data=>{
-        this.loading = null;
+                        })
 
-        this.toast = "Added to cart ✅";
+                        .catch(() => {
+                            this.loading = null;
+                            this.toast = "Error adding item";
+                            setTimeout(() => this.toast = "", 2000);
+                        });
 
-        setTimeout(()=>{
-          this.toast = "";
-        },2000);
+                }
 
-      })
+            }
 
-      .catch(()=>{
-        this.loading = null;
-        this.toast = "Error adding item";
-        setTimeout(()=>this.toast="",2000);
-      });
-
-    }
-
-  }
-
-}).mount("#shopApp");
-</script>
+        }).mount("#shopApp");
+    </script>
 
 {% endblock %}

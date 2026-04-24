@@ -59,8 +59,8 @@
       </div>
 
       <div class="total-row">
-        <span>Amount</span>
-        <strong>${{ "%.2f"|format(cart_total) }}</strong>
+        <span>Amount:</span>
+        <strong> {{ "%.2f"|format(cart_total) }} ៛</strong>
       </div>
 
       <div class="instruction">
@@ -103,7 +103,7 @@ createApp({
       if (this.stopped) return;
 
       axios.get('/check_status', {
-        params: { qrcode: this.qrcode }
+        params: { qrcode: this.qrcode}
       }).then(res => {
 
         // always normalize result

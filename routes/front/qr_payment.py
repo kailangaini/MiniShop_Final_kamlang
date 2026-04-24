@@ -1,6 +1,5 @@
 import os
 import qrcode
-
 from flask import render_template, session, redirect, request, jsonify
 from app import app, db
 from model import Order, OrderItem, Product
@@ -8,7 +7,7 @@ from model.cart import Cart
 from bakong_khqr import KHQR
 
 
-token_string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiNGQyN2MwZjE2MzFjNDA2YyJ9LCJpYXQiOjE3NzY3NzAxNDgsImV4cCI6MTc4NDU0NjE0OH0.2im6bNiNJqMpdS04p5At9HOgeKGN-P4w-zTB_cICf4k"
+token_string = os.getenv("KHQR_TOKEN")
 
 
 # =========================
@@ -79,7 +78,7 @@ def qr_payment():
         merchant_name='KaiShop',
         merchant_city='Phnom Penh',
         amount=float(total),
-        currency='USD',
+        currency='KHR',
         bill_number=invoice,
         static=False,
         expiration=1
