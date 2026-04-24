@@ -16,23 +16,18 @@ def get_or_create_cart():
     if cart_id:
         cart = Cart.query.filter_by(id=cart_id).first()
 
-        #  if cart is deleted or already checked out → ignore it
         if not cart or cart.status == 1:
             cart = None
 
-    #  ALSO if cart exists but has NO items → treat as new cart
-    if cart and len(cart.items) == 0:
-        cart = None
-
-    # ✅ create new cart if needed
     if not cart:
         cart = Cart(status=0)
         db.session.add(cart)
         db.session.commit()
-
         session["cart_id"] = cart.id
 
     return cart
+
+
 
 
 # =========================

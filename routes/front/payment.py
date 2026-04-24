@@ -30,13 +30,19 @@ def get_total():
 def payment():
 
     cart = get_cart()
-    total = get_total()
+
+    if not cart:
+        return redirect('/cart')
+
+    items = cart.items or []
+
+    total = sum(float(i.price) * i.quantity for i in items)
+
     if total <= 0:
         return redirect('/cart')
 
     if request.method == 'POST':
 
-        # ✅ validate input (important)
         customer_name = request.form.get("customer_name")
         email = request.form.get("email")
         phone = request.form.get("phone")
@@ -50,7 +56,6 @@ def payment():
                 error="Please fill all fields"
             )
 
-        # ✅ store checkout
         session['checkout'] = {
             "customer_name": customer_name,
             "email": email,
