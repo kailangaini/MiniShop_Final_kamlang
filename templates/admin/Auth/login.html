@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KaiShop | Login</title>
+    <style>
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background-color: #f4f6f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-box {
+            width: 360px;
+            background: white;
+            padding: 40px;
+            border-top: 5px solid #C04E01;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-radius: 4px;
+        }
+
+        .login-logo {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+
+        .login-logo span { color: #C04E01; }
+
+        .form-group { margin-bottom: 20px; }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .btn-primary {
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .btn-primary:hover { background-color: #0056b3; }
+
+        .footer-text {
+            text-align: center;
+            font-size: 13px;
+            margin-top: 20px;
+            color: #777;
+        }
+        /* Styling for the Flash Message */
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Optional: Add a small dot or icon before the text */
+        .alert-error::before {
+            content: "⚠️";
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-box">
+    <div class="login-logo">
+        Kai<span>Shop</span> | Admin
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+            <div class="alert-error">
+                {{ message }}
+            </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="post" action="{{ url_for('do_login', next=request.args.get('next')) }}">
+        <div class="form-group">
+            <input type="text" name="username" placeholder="Enter username" required>
+        </div>
+        <div class="form-group">
+            <input type="password" name="password" placeholder="Password" required>
+        </div>
+        <button type="submit" class="btn-primary">Login</button>
+    </form>
+
+    <div class="footer-text">
+        Copyright © 2026 KaiLang.
+    </div>
+</div>
+
+</body>
+</html>

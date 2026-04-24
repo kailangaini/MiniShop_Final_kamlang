@@ -1,0 +1,54 @@
+.img-preview{
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    border-radius: 10px;
+    object-position: center;
+}
+
+.custom-file-btn::file-selector-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.custom-file-btn::file-selector-button:hover {
+    background-color: #0056b3;
+}
+
+.custom-file-field {
+    height: 50px;          /* taller input field */
+    font-size: 18px;       /* bigger text inside */
+    padding: 5px 10px;     /* inner spacing */
+}
+
+/* Dark Orange Sidebar */
+.sidebar-dark-orange {
+    background-color: #B34700; /* Darker, rich orange */
+}
+
+.sidebar-dark-orange .nav-sidebar > .nav-item > .nav-link {
+    color: #fff;
+}
+
+.sidebar-dark-orange .nav-sidebar > .nav-item > .nav-link.active {
+    background-color: #993D00; /* darker shade for active link */
+    color: #fff;
+}
+
+.sidebar-dark-orange .brand-link {
+    background-color: #A63C00; /* darker top brand bar */
+    color: #fff;
+}
+
+.sidebar-dark-orange .user-panel .info a {
+    color: #fff;
+}
+
+
+

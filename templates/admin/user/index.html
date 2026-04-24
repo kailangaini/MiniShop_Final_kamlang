@@ -1,0 +1,82 @@
+{% extends 'admin/layout/master.html' %}
+{% block page_title %}
+    Admin | User
+{% endblock %}
+{% block content %}
+<div class="content-wrapper">
+    <!-- Content Header -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">User Page</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{{ url_for('dashboards') }}">Home</a></li>
+              <li class="breadcrumb-item active">User Page</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+          <div class="card p-3">
+              <div class="card-header">
+                  <a
+                      href="{{ url_for('form_user', action='add') }}"
+                      class="btn btn-outline-primary"
+                  >
+                      Add
+                  </a>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-borderless table-striped">
+                      <thead>
+                        <tr class="bg-primary text-white">
+                            <th>No.</th>
+                            <th>Username</th>
+                            <th>Profile</th>
+                            <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for user in users %}
+                          <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>
+                                {% if user.profile %}
+                                    <img src="{{ url_for('static', filename='uploads/thumb_' ~ user.profile) }}"
+                                         onerror="this.onerror=null;this.src='/static/error-image.png'"
+                                         style="width:50px;height:50px;object-fit:contain;">
+                                {% else %}
+                                    <img src="{{ url_for('static', filename='no-image.png') }}"
+                                         style="width:50px;height:50px;object-fit:contain;">
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a class="btn btn-sm btn-outline-secondary"
+                                   href="{{ url_for('form_user', action='edit', user_id=user.id) }}">
+                                    <i class="far fa-edit"></i> Edit
+                                </a>
+                                <a href="{{ url_for('confirm_user', user_id=user.id) }}"
+                                   class="btn btn-sm btn-outline-danger">
+                                    <i class="far fa-trash-alt"></i> Delete
+                                </a>
+                            </td>
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                  </table>
+                </div>
+              </div>
+          </div>
+      </div>
+    </div>
+</div>
+{% endblock %}

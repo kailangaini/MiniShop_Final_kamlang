@@ -1,0 +1,20 @@
+{% extends 'pageFront/master.html' %}
+{% block content %}
+    <main>
+        <h2>Get in Touch</h2>
+        <p>If you have any questions, suggestions, or want to work with us, please fill out the form below or reach out via email.</p>
+
+        <h3>Contact Form</h3>
+        <form action="/contact" method="post">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <input type="text" name="phone" placeholder="Your phone number" required>
+            <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+
+        <h3>Email & Phone</h3>
+        <p>Email: <a href="mailto:info@example.com">info@example.com</a></p>
+        <p>Phone: +1 (555) 123-4567</p>
+    </main>
+{% endblock %}

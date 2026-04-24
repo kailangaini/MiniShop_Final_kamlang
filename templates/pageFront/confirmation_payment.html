@@ -1,0 +1,179 @@
+{% extends 'pageFront/master.html' %}
+
+{% block content %}
+
+<style>
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.confirm-page {
+  background: #FAF8F3;
+  min-height: 100vh;
+  padding: 48px 20px 80px;
+  font-family: 'DM Sans', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.confirm-card {
+  width: 100%;
+  max-width: 480px;
+  background: #fff;
+  border-radius: 20px;
+  border: 1px solid #E8E0D0;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  overflow: hidden;
+}
+
+.confirm-header {
+  background: #FAF8F3;
+  border-bottom: 1px dashed #E8E0D0;
+  padding: 24px;
+  text-align: center;
+}
+
+.confirm-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  margin: 0;
+}
+
+.confirm-header p {
+  font-size: 12px;
+  color: #9A9388;
+  margin-top: 4px;
+}
+
+.confirm-body {
+  padding: 24px;
+}
+
+.success-icon {
+  text-align: center;
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.receipt-row,
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+.receipt-label,
+.label {
+  color: #9A9388;
+}
+
+.receipt-value,
+.value {
+  font-weight: 500;
+}
+
+.divider,
+hr {
+  border: none;
+  border-top: 1px dashed #E8E0D0;
+  margin: 16px 0;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: 700;
+  font-family: 'Playfair Display', serif;
+}
+
+.btn {
+  width: 100%;
+  background: #E8500A;
+  color: #fff;
+  border: none;
+  padding: 15px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.btn:hover {
+  background: #CC4508;
+}
+
+.section-title {
+  margin-top: 20px;
+  font-weight: 600;
+}
+</style>
+
+<main class="confirm-page">
+  <div class="confirm-card">
+
+    <div class="confirm-header">
+      <h2>Receipt</h2>
+      <p>Payment Successful</p>
+    </div>
+
+    <div class="confirm-body">
+
+      <div class="success-icon">✅</div>
+
+      <!-- ORDER INFO -->
+      <div class="receipt-row">
+        <span class="receipt-label">Invoice</span>
+        <span class="receipt-value">{{ invoice }}</span>
+      </div>
+
+      <div class="receipt-row">
+        <span class="receipt-label">Date</span>
+        <span class="receipt-value">
+          {{ order.created_at.strftime('%Y-%m-%d %H:%M') if order.created_at else '' }}
+        </span>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- TOTAL -->
+      <div class="total-row">
+        <span>Total</span>
+        <span>${{ "%.2f"|format(order.total) }}</span>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- ITEMS -->
+      <div class="section-title">Items</div>
+
+      {% for item in items %}
+      <div class="info-row">
+        <span>{{ item.name }}</span>
+        <span>x{{ item.quantity }}</span>
+        <span>${{ "%.2f"|format(item.price * item.quantity) }}</span>
+      </div>
+      {% endfor %}
+
+      <div class="divider"></div>
+
+      <div style="text-align:center; font-size:12px; color:#9A9388;">
+        Thank you for your purchase 💛
+      </div>
+
+      <a href="/" class="btn">Back to Home</a>
+
+    </div>
+
+  </div>
+</main>
+
+{% endblock %}

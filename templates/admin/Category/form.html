@@ -1,0 +1,71 @@
+{% extends 'admin/layout/master.html' %}
+{% block page_title %}
+    Admin | Category
+{% endblock %}
+{% block content %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Category Page</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ url_for('categorys') }}">Category</a></li>
+                        <li class="breadcrumb-item active">Form Category</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+        <div class="container-fluid">
+            <div class="card p-3">
+                <div class="card-header">
+                    <a href="{{ url_for('categorys') }}" class="btn btn-outline-secondary">Back</a>
+                </div>
+                <div class="card-body">
+                    <form
+                        method="post"
+                        action="{{ url_for('add_category') if status == 'add' else url_for('edit_category') }}"
+                    >
+                        <!-- Category Name -->
+                        <div class="form-group">
+                            <label>Name(*)</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="name"
+                                name="name"
+                                value="{{ category.name if status == 'edit' }}"
+                                placeholder="Enter Category Name"
+                                required
+                            >
+                        </div>
+
+                        <!-- Hidden ID -->
+                        {% if status == 'edit' %}
+                            <input type="hidden" name="category_id" value="{{ category.id }}">
+                        {% endif %}
+
+                        <!-- Buttons -->
+                        {% if status == 'add' %}
+                            <button type="submit" class="btn btn-danger">Cancel</button>
+                            <button type="submit" class="btn btn-primary float-right">Save</button>
+                        {% endif %}
+                        {% if status == 'edit' %}
+                            <button type="submit" class="btn btn-warning float-right">Update</button>
+                        {% endif %}
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
