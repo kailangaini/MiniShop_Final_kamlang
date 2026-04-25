@@ -1,7 +1,14 @@
 from app import app, render_template
-import requests
+from model.order import Order
+from sqlalchemy.orm import joinedload
 
 @app.get('/admin/order')
 def orders():
-    module = 'order'
-    return render_template('admin/Order/index.html',module=module)
+    orders = Order.query.options(
+        joinedload(Order.items)
+    ).order_by(Order.id.desc()).all()
+
+    return render_template(
+        'admin/Order/index.html',
+        orders=orders
+    )

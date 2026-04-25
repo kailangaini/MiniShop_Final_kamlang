@@ -1,7 +1,136 @@
 {% extends 'admin/layout/master.html' %}
+
 {% block page_title %}
-	Admin | Order
+	Admin | Orders
 {% endblock %}
+
 {% block content %}
-    <h1>hime</h1>
+<div class="content-wrapper">
+
+  <!-- Content Header -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">Order Page</h1>
+        </div>
+
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item">
+              <a href="{{ url_for('dashboards') }}">Home</a>
+            </li>
+            <li class="breadcrumb-item active">Orders</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="content">
+    <div class="container-fluid">
+
+      <div class="card p-3">
+
+        <div class="card-header">
+          <strong>All Orders</strong>
+        </div>
+
+        <div class="card-body">
+          <div class="table-responsive">
+
+            <table class="table table-borderless table-striped">
+
+  <thead>
+    <tr class="bg-primary text-white">
+      <th>No.</th>
+      <th>Customer</th>
+      <th>Phone</th>
+      <th>Total</th>
+      <th>Payment</th>
+      <th>Status</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    {% if orders %}
+      {% for order in orders %}
+      <tr>
+
+        <td>{{ loop.index }}</td>
+
+        <td>
+          <strong>{{ order.customer_name }}</strong><br>
+          <small>{{ order.email }}</small>
+        </td>
+
+        <td>{{ order.phone }}</td>
+
+        <td>
+          <strong>{{ order.total }} ៛</strong><br>
+          <small>{{ order.items|length if order.items else 0 }} items</small>
+        </td>
+
+        <!-- Payment -->
+        <td>
+          <span class="badge bg-info">
+            {{ order.payment_method or 'N/A' }}
+          </span><br>
+
+          {% if order.payment_status == 'Paid' %}
+            <span class="badge bg-success">Paid</span>
+          {% else %}
+            <span class="badge bg-warning">Pending</span>
+          {% endif %}
+        </td>
+
+        <!-- Status -->
+        <td>
+          {% if order.status == 'Pending' %}
+            <span class="badge bg-warning">Pending</span>
+          {% elif order.status == 'Completed' %}
+            <span class="badge bg-success">Completed</span>
+          {% else %}
+            <span class="badge bg-secondary">
+              {{ order.status }}
+            </span>
+          {% endif %}
+        </td>
+
+        <!-- Date -->
+        <td>
+          {% if order.created_at %}
+            {{ order.created_at.strftime('%Y-%m-%d') }}<br>
+            <small>{{ order.created_at.strftime('%H:%M') }}</small>
+          {% else %}
+            N/A
+          {% endif %}
+        </td>
+
+      </tr>
+      {% endfor %}
+    {% else %}
+      <tr>
+        <td colspan="7" class="text-center text-muted">
+          No orders found
+        </td>
+      </tr>
+    {% endif %}
+
+  </tbody>
+
+</table>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
 {% endblock %}
